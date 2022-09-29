@@ -62,7 +62,7 @@ function menu() {
                     break;
             }
         });
-}
+};
 
 function allEmploy() {
     db.query(`SELECT * FROM employee`, function (err, results) {
