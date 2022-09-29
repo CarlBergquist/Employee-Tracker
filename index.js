@@ -113,11 +113,7 @@ function addEmploy() {
             }
         ])
         .then(function (res) {
-            const firstName = res.firstName;
-            const lastName = res.lastName;
-            const roleID = res.addRole;
-            const managerID = res.addManagerID;
-            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${firstName}", "${lastName}", "${roleID}", "${managerID}")`, function (err, results) {
+            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${res.firstName}", "${res.lastName}", "${res.addRole}", "${res.addManagerID}")`, function (err, results) {
                 console.table(results);
                 menu();
             })
@@ -145,25 +141,28 @@ function addRole() {
         .prompt([
             {
                 type: "input",
-                message: "Enter the employee's title",
-                name: "roleTitle"
+                message: "Enter the employee's role",
+                name: "role"
             },
             {
                 type: "input",
                 message: "Enter the employee's salary",
-                name: "roleSalary"
+                name: "salary"
             },
             {
-                type: "input",
-                message: "Enter the employee's department ID",
-                name: "roleDept"
+                type: "list",
+                message: "Pick the employee's department (1-Sales, 2-Engineering, 3-Accounting, 4-Legal)",
+                name: "dept",
+                choices: [
+                    1,
+                    2,
+                    3,
+                    4
+                ]
             }
         ])
         .then(function (res) {
-            const title = res.roleTitle;
-            const salary = res.roleSalary;
-            const departmentID = res.roleDept;
-            db.query(`INSERT INTO role (title, salary, department_id) VALUES ("${title}", "${salary}", "${departmentID}")`, function (err, results) {
+            db.query(`INSERT INTO role (title, salary, department_id) VALUES ("${res.role}", "${res.salary}", "${res.dept}")`, function (err, results) {
                 console.table(results);
                 menu();
             });
@@ -185,11 +184,10 @@ function update() {
             }
         ])
         .then(function (res) {
-            const update = res.update;
-            const role = res.role;
-            db.query(`UPDATE employee SET role_id = "${role}" WHERE id = "${update}"`, function (err, results) {
+            db.query(`UPDATE employee SET role_id = "${res.role}" WHERE id = "${res.update}"`, function (err, results) {
                 console.table(results);
                 menu();
             })
         });
 }
+
