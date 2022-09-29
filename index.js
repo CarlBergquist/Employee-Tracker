@@ -115,9 +115,9 @@ function addEmploy() {
         .then(function (res) {
             const firstName = res.firstName;
             const lastName = res.lastName;
-            const RoleID = res.addRole;
-            const ManagerID = res.addManagerID;
-            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${firstName}", "${lastName}", "${RoleID}", "${ManagerID}")`, function (err, results) {
+            const roleID = res.addRole;
+            const managerID = res.addManagerID;
+            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${firstName}", "${lastName}", "${roleID}", "${managerID}")`, function (err, results) {
                 console.table(results);
                 menu();
             })
